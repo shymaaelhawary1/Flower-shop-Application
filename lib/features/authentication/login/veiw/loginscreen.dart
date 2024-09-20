@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-
+   
+     bool _isObscure = true;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -66,14 +67,21 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         TextFormField(
                           controller: passwordController,
-                          obscureText: true,
-                          decoration: const InputDecoration(
+                          obscureText:  _isObscure,
+                          decoration:  InputDecoration(
                             hintText: 'Password',
-                            hintStyle: TextStyle(
+                            hintStyle:const TextStyle(
                               fontSize: 15,
                               color: Color(0xFFBD8F97),
                             ),
-                            suffixIcon: Icon(Icons.visibility),
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                 _isObscure ? Icons.visibility : Icons.visibility_off,), 
+                                 onPressed: () {
+                                  
+                                  _isObscure = !_isObscure;
+                                   },
+                            ),
                           ),
                         ),
                         const SizedBox(height: 20),

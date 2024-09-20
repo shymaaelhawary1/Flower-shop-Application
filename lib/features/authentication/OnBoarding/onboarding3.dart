@@ -8,7 +8,7 @@ class OnBoarding3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        body: OnboardingCustomWidget(label1: 'Get your order', label2:'Sit back and relax! Once you\'ve placed your order,we\'ll swiftly prepare it and ensure it reaches its destination,spreading joy and happiness.',
+        body: OnboardingCustomWidget(label1: 'Get your order', label2:'',
  image: 'assets/onboarding3.png', pagenum: '3',),
       ),
     );
