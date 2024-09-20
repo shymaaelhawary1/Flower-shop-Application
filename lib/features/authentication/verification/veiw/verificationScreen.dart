@@ -104,14 +104,8 @@ class VerificationScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return  LoginScreen();
-                          },
-                        ),
-                      );
+                    showverificationDialog(context); 
+
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFFBD8F97),
@@ -150,5 +144,59 @@ class VerificationScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+
+  
+  Future<void> showverificationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Column(
+            mainAxisSize: MainAxisSize.min, 
+            children: [
+              Image.asset('assets/check-e-mail.png', height: 100),
+              const SizedBox(height: 10),
+              const Text(
+                'Your Verification Success',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Color(0xFFC4989F),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          content: const Text(
+            'your verification success to your email. try to login with the new password that sent in your e-mail',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 14),
+          ),
+          actions: [
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); 
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return  LoginScreen();
+                          },
+                        ),
+                      );
+                },
+                child: const Text('OK', style: TextStyle(fontSize: 16)),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+    return Future.value();
   }
 }
