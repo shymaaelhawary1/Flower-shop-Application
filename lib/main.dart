@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return LoginScreen(); // عرض شاشة تسجيل الدخول إذا تم إكمال الـ Onboarding
+            return LoginScreen(); 
           } else {
-            return OnBoardingPageView(); // عرض شاشة الـ Onboarding إذا لم يتم إكمالها
+            return OnBoardingPageView(); 
           }
         },
       ),
