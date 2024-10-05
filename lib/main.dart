@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_preview/device_preview.dart';
 
+import 'features/dashboard/details/veiw/details.dart';
+import 'features/dashboard/home/veiw/home.dart';
+
 void main() {
   runApp(
     DevicePreview(
-      enabled: true,
+      enabled: false,
       builder: (context) => MyApp(),
     ),
   );
@@ -29,9 +32,10 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return LoginScreen(); 
+            return Home();
+            //  LoginScreen();
           } else {
-            return OnBoardingPageView(); 
+            return OnBoardingPageView();
           }
         },
       ),
