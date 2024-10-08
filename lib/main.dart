@@ -2,17 +2,11 @@ import 'package:flower_shop/features/authentication/OnBoarding/onboarding.dart';
 import 'package:flower_shop/features/authentication/login/veiw/loginscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:device_preview/device_preview.dart';
-
-import 'features/dashboard/details/veiw/details.dart';
-import 'features/dashboard/home/veiw/home.dart';
 
 void main() {
   runApp(
-    DevicePreview(
-      enabled: false,
-      builder: (context) => MyApp(),
-    ),
+     MyApp(),
+  
   );
 }
 
@@ -20,10 +14,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true,
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
       home: FutureBuilder<bool>(
         future: _isOnboardingComplete(),
         builder: (context, snapshot) {
@@ -32,8 +22,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return Home();
-            //  LoginScreen();
+            return LoginScreen();
           } else {
             return OnBoardingPageView();
           }

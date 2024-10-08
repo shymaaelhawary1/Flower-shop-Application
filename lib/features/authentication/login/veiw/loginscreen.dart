@@ -1,11 +1,12 @@
 import 'package:flower_shop/features/authentication/forgetpassword/veiw/fogetPassScreen.dart';
 import 'package:flower_shop/features/authentication/regestration/veiw/regestrationScreen.dart';
+import 'package:flower_shop/features/dashboard/home/veiw/home.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-   
-     bool _isObscure = true;
+
+  bool _isObscure = true;
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -67,20 +68,22 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 20),
                         TextFormField(
                           controller: passwordController,
-                          obscureText:  _isObscure,
-                          decoration:  InputDecoration(
+                          obscureText: _isObscure,
+                          decoration: InputDecoration(
                             hintText: 'Password',
-                            hintStyle:const TextStyle(
+                            hintStyle: const TextStyle(
                               fontSize: 15,
                               color: Color(0xFFBD8F97),
                             ),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                 _isObscure ? Icons.visibility : Icons.visibility_off,), 
-                                 onPressed: () {
-                                  
-                                  _isObscure = !_isObscure;
-                                   },
+                                _isObscure
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
+                              onPressed: () {
+                                _isObscure = !_isObscure;
+                              },
                             ),
                           ),
                         ),
@@ -109,12 +112,12 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                             GestureDetector(
-                              onTap: () {  
-                                
+                              onTap: () {
                                 Navigator.push(context,
                                     MaterialPageRoute(builder: (context) {
                                   return RegistrationScreen();
-                                }));},
+                                }));
+                              },
                               child: RichText(
                                 text: const TextSpan(
                                   text: 'Register',
@@ -132,7 +135,14 @@ class LoginScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 30),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (
+                              context,
+                            ) {
+                              return Home();
+                            }));
+                          },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFBD8F97),
                             padding: const EdgeInsets.symmetric(
