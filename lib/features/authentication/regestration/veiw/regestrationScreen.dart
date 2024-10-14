@@ -1,12 +1,15 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flower_shop/features/authentication/login/veiw/loginscreen.dart';
 
 class RegistrationScreen extends StatelessWidget {
   RegistrationScreen({super.key});
-  
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+
+  // final TextEditingController emailController = TextEditingController();
+  // final TextEditingController usernameController = TextEditingController();
+  // final TextEditingController passwordController = TextEditingController();
+  String? pass;
+  String? mail;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class RegistrationScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height, 
+          height: MediaQuery.of(context).size.height,
           decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/backgroundImage.png'),
@@ -26,7 +29,8 @@ class RegistrationScreen extends StatelessWidget {
               height: 718,
               width: 300,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 214, 212, 212).withOpacity(0.8),
+                color:
+                    const Color.fromARGB(255, 214, 212, 212).withOpacity(0.8),
                 borderRadius: BorderRadius.circular(30),
               ),
               padding: const EdgeInsets.all(20),
@@ -53,7 +57,9 @@ class RegistrationScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         TextFormField(
-                          controller: emailController,
+                          onChanged: (email) {
+                            mail = email;
+                          },
                           decoration: const InputDecoration(
                             hintText: 'Email address',
                             hintStyle: TextStyle(
@@ -63,20 +69,12 @@ class RegistrationScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 5),
-                        TextFormField(
-                          controller: usernameController,
-                          decoration: const InputDecoration(
-                            hintText: 'User name',
-                            hintStyle: TextStyle(
-                              fontSize: 15,
-                              color: Color(0xFFBD8F97),
-                            ),
-                          ),
-                        ),
                         const SizedBox(height: 5),
                         TextFormField(
-                          controller: passwordController,
-                          obscureText: true, 
+                          onChanged: (password) {
+                            pass = password;
+                          },
+                          obscureText: true,
                           decoration: const InputDecoration(
                             hintText: 'Password',
                             hintStyle: TextStyle(
@@ -87,33 +85,48 @@ class RegistrationScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 5),
-
                         GestureDetector(
-                              onTap: () {  Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return LoginScreen();
-                                }));},
-                              child: Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: RichText(
-                                  text: const TextSpan(
-                                    text: 'Back to Login',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Color(0xFFBD8F97),
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: Color(0xFFBD8F97),
-                                      decorationThickness: 1.5,
-                                    ),
-                                  ),
+                          onTap: () {
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return LoginScreen();
+                            }));
+                          },
+                          child: Align(
+                            alignment: AlignmentDirectional.centerEnd,
+                            child: RichText(
+                              text: const TextSpan(
+                                text: 'Back to Login',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Color(0xFFBD8F97),
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: Color(0xFFBD8F97),
+                                  decorationThickness: 1.5,
                                 ),
                               ),
                             ),
-
+                          ),
+                        ),
                         const SizedBox(height: 20),
-
                         ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            try {
+                              UserCredential credential = await FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                email: mail!,
+                                password: pass!,
+                              );
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'weak-password') {
+                                print('The password provided is too weak.');
+                              } else if (e.code == 'email-already-in-use') {
+                                print(
+                                    'The account already exists for that email.');
+                              }
+                            } catch (e) {
+                              print(e);
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFFBD8F97),
@@ -134,7 +147,7 @@ class RegistrationScreen extends StatelessWidget {
                                 thickness: 2,
                                 color: Color(0xFFBD8F97),
                                 indent: 5,
-                                endIndent: 10, 
+                                endIndent: 10,
                               ),
                             ),
                             Text(

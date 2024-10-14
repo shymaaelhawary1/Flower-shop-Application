@@ -4,12 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flower_shop/features/authentication/login/veiw/loginscreen.dart';
 
 class OnBoardingPageView extends StatefulWidget {
+  const OnBoardingPageView({super.key});
+
   @override
   _OnBoardingPageViewState createState() => _OnBoardingPageViewState();
 }
 
 class _OnBoardingPageViewState extends State<OnBoardingPageView> {
-  PageController _pageController = PageController();
+  final PageController _pageController = PageController();
   int currentIndex = 0;
 
   final List<Widget> onboardingPages = const [

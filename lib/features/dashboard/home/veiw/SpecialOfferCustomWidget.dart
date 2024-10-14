@@ -44,7 +44,7 @@ class SpecialOfferCustomWidget extends StatelessWidget {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color: Color(0xFFBD8F97),
+                        color: const Color(0xFFBD8F97),
                         borderRadius: BorderRadius.circular(5),
                       ),
                       child: Text(
