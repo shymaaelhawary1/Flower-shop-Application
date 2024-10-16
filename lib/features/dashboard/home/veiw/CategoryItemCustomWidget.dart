@@ -1,6 +1,7 @@
 import 'package:flower_shop/features/dashboard/details/veiw/details.dart';
 import 'package:flutter/material.dart';
 
+import '../../CategoryPage/veiw/CategoryPage.dart';
 import '../model/CategoryModel.dart';
 
 class CategoryItemCustomWidget extends StatelessWidget {
@@ -41,7 +42,8 @@ class CategoryItemCustomWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: buttonNamesCategores(index, popular, context),
+              child: buttonNamesCategores(
+                  popular: popular, index: index, context: context),
             ),
           ),
         );
@@ -49,23 +51,24 @@ class CategoryItemCustomWidget extends StatelessWidget {
     );
   }
 
-  Padding buttonNamesCategores(int index, bool popular, BuildContext context) {
+  Padding buttonNamesCategores(
+      {required int index,
+      required bool? popular,
+      required BuildContext context}) {
     if (popular == false) {
       return Padding(
         padding:
             const EdgeInsets.only(top: 115, bottom: 5, right: 30, left: 30),
         child: ElevatedButton(
           onPressed: () {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) {
-            //       return Details(
-            //         categoryModel: categories[index],
-            //       );
-            //     },
-            //   ),
-            // );
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return CategoryPage();
+                },
+              ),
+            );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFBD8F97),

@@ -1,5 +1,11 @@
+import 'package:flower_shop/features/dashboard/Cart/veiw/cart_view.dart';
+import 'package:flower_shop/features/dashboard/Feedback%20form/veiw/fompage.dart';
+import 'package:flower_shop/features/dashboard/favourite/veiw/favourite_view.dart';
+import 'package:flower_shop/features/dashboard/follow%20order/veiw/followpage.dart';
+import 'package:flower_shop/features/dashboard/home/model/CategoryModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../CategoryPage/veiw/CategoryPage.dart';
 import 'CategoryItemCustomWidget.dart';
 import 'SpecialOfferCustomWidget.dart';
 
@@ -7,6 +13,12 @@ class Home extends StatelessWidget {
   final PageController pageController = PageController();
   final ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
 
+  final List<CategoryModel> categories = [
+    CategoryModel(image: 'assets/Rectangle 8.png', title: 'Roses'),
+    CategoryModel(image: 'assets/Rectangle 9.png', title: 'lilies '),
+    CategoryModel(image: 'assets/Rectangle 10.png', title: 'seasonal'),
+    CategoryModel(image: 'assets/Rectangle 14.png', title: 'uniflora'),
+  ];
   Home({super.key});
 
   void onChangeTab(int index) {
@@ -41,12 +53,13 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
-                              child: TextField(
+                              child: TextFormField(
                                 controller: TextEditingController(),
                                 decoration: InputDecoration(
                                   filled: true,
@@ -70,13 +83,48 @@ class Home extends StatelessWidget {
                       padding: EdgeInsets.only(left: 16, top: 10),
                       child: Text(
                         'Categories',
-                        style: TextStyle(color: Color(0xFFBD8F97), fontSize: 20),
+                        style:
+                            TextStyle(color: Color(0xFFBD8F97), fontSize: 20),
                       ),
                     ),
                     SizedBox(
                       height: 150,
-                      child: CategoryItemCustomWidget(
-                        popular: false,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return CategoryPage();
+                                    },
+                                  ),
+                                );
+                              },
+                              child: Container(
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(categories[index].image),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                child: CategoryItemCustomWidget(
+                                  popular: false,
+                                ).buttonNamesCategores(
+                                  index: index,
+                                  context: context,
+                                  popular: false,
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(height: 5),
@@ -98,15 +146,16 @@ class Home extends StatelessWidget {
                         popular: true,
                       ),
                     ),
-                 const SizedBox(height: 5,) 
-
+                    const SizedBox(
+                      height: 5,
+                    )
                   ],
                 ),
               ),
-              // const FavoritePage(),
-              // ReservationPage(),
-              // const DeliveryPage(),
-              // const ChatPage(),
+              FavouriteView(),
+              CartView(),
+              FeedbackForm(),
+              FollowOrder(),
             ],
           );
         },
@@ -115,8 +164,8 @@ class Home extends StatelessWidget {
         valueListenable: currentIndexNotifier,
         builder: (context, currentIndex, _) {
           return BottomNavigationBar(
-              type: BottomNavigationBarType.fixed,
-            backgroundColor:const Color(0xFFBD8F97),
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: const Color(0xFFBD8F97),
             currentIndex: currentIndex,
             selectedItemColor: const Color.fromARGB(255, 101, 136, 250),
             unselectedItemColor: const Color.fromARGB(255, 251, 250, 250),
@@ -124,7 +173,6 @@ class Home extends StatelessWidget {
             selectedLabelStyle: const TextStyle(color: Colors.green),
             unselectedLabelStyle: const TextStyle(color: Colors.grey),
             items: const [
-
               BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.home),
                 label: 'Home',
@@ -133,21 +181,18 @@ class Home extends StatelessWidget {
                 icon: Icon(CupertinoIcons.heart),
                 label: 'Favourite',
               ),
-               BottomNavigationBarItem(
+              BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.cart),
                 label: 'Cart',
               ),
               BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.chat_bubble_text),
-                label: 'Chat',
+                icon: Icon(CupertinoIcons.star),
+                label: 'FeedBack',
               ),
               BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.map),
                 label: 'Following Order',
               ),
-             
-              
-              
             ],
           );
         },

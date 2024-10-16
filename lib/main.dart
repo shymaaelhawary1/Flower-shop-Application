@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flower_shop/features/authentication/OnBoarding/onboarding.dart';
 import 'package:flower_shop/features/authentication/login/veiw/loginscreen.dart';
+import 'package:flower_shop/features/dashboard/home/veiw/home.dart';
 import 'package:flower_shop/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return LoginScreen();
+            return Home();
           } else {
             return OnBoardingPageView();
           }
