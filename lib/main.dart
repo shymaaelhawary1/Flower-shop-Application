@@ -1,18 +1,27 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flower_shop/cubits/cart/cart_cubit.dart';
+import 'package:flower_shop/cubits/favourite/favourite_cubit.dart';
 import 'package:flower_shop/features/authentication/OnBoarding/onboarding.dart';
 import 'package:flower_shop/features/authentication/login/veiw/loginscreen.dart';
 import 'package:flower_shop/features/dashboard/home/veiw/home.dart';
 import 'package:flower_shop/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
-    const MyApp(),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => FavoritesCubit()),
+        BlocProvider(create: (context) => CartCubit()),
+      ],
+      child: MyApp(),
+    ),
   );
 }
 

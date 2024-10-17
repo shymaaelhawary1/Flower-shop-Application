@@ -1,10 +1,12 @@
+import 'package:flower_shop/features/dashboard/home/model/CategoryModel.dart';
 import 'package:flutter/material.dart';
 
 class CustomFlowerCard extends StatelessWidget {
   const CustomFlowerCard({
     super.key,
+    required this.categoryModel,
   });
-
+  final CategoryModel categoryModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,38 +28,17 @@ class CustomFlowerCard extends StatelessWidget {
         child: Column(
           children: [
             ListTile(
-              leading: Image.asset('assets/Rectangle 36.png'),
-              title: const Text('Enchanted Cottage'),
-              subtitle: const Text(
-                  'It features a charmingassortment of fresh,garden-style flowers'),
+              leading: Image.asset(
+                categoryModel.image,
+              ),
+              title: Text(
+                categoryModel.title,
+              ),
+              subtitle: Text(
+                categoryModel.description,
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                    radius: 20,
-                    foregroundColor: Colors.pink,
-                    backgroundColor: Colors.transparent,
-                    child: StreamBuilder<Object>(
-                        stream: null,
-                        builder: (context, snapshot) {
-                          return IconButton(
-                              onPressed: () {}, icon: Icon(Icons.add));
-                        })),
-                const Text(
-                  '1',
-                  style: TextStyle(fontSize: 24),
-                ),
-                CircleAvatar(
-                    foregroundColor: Colors.pink,
-                    backgroundColor: Colors.transparent,
-                    child: Center(
-                      child: IconButton(
-                          onPressed: () {}, icon: Icon(Icons.minimize)),
-                    )),
-                const Text('\$70')
-              ],
-            ),
+            const Text('\$70'),
           ],
         ),
       ),
