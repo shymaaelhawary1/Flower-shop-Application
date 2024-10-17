@@ -195,6 +195,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 }
                               }
+
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return Home();
+                              }));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFFBD8F97),

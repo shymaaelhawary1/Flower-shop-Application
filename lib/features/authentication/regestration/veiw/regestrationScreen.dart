@@ -133,7 +133,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () async {
-               if (formkey.currentState != null && formkey.currentState!.validate()) {                                isLoading = true;
+               if (formkey.currentState != null && formkey.currentState!.validate()) {   
+                                             isLoading = true;
                                 setState((){
 
                                 });

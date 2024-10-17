@@ -3,10 +3,17 @@ import 'package:flutter/material.dart';
 
 import '../../home/model/CategoryModel.dart';
 
-class Details extends StatelessWidget {
-  const Details( {super.key, required this.categoryModel});
-  final count = 0;
+class Details extends StatefulWidget {
+  const Details({super.key, required this.categoryModel});
   final CategoryModel categoryModel;
+
+  @override
+  State<Details> createState() => _DetailsState();
+}
+
+class _DetailsState extends State<Details> {
+  static int count = 0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,13 +42,13 @@ class Details extends StatelessWidget {
                 ],
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.symmetric(vertical: 15),
               child: SizedBox(
                 height: 381,
                 width: 285,
                 child: Image(
-                  image: AssetImage(categoryModel.image),
+                  image: AssetImage(widget.categoryModel.image),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -60,13 +67,13 @@ class Details extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                     Text(
-                      categoryModel.title,
+                    Text(
+                      widget.categoryModel.title,
                       style: const TextStyle(fontSize: 26, color: Colors.white),
                     ),
-                     Text
-                     (categoryModel.description
-                      ,style: const TextStyle(fontSize: 16, color: Colors.white),
+                    Text(
+                      widget.categoryModel.description,
+                      style: const TextStyle(fontSize: 16, color: Colors.white),
                     ),
                     const SizedBox(
                       height: 20,
@@ -76,9 +83,9 @@ class Details extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            // setState(() {
-                            //   if (count > 0) count--;
-                            // });
+                            setState(() {
+                              if (count > 0) count--;
+                            });
                           },
                           icon: Container(
                             width: 32,
@@ -110,9 +117,9 @@ class Details extends StatelessWidget {
                         ),
                         IconButton(
                           onPressed: () {
-                            // setState(() {
-                            //   count++;
-                            // });
+                            setState(() {
+                              count++;
+                            });
                           },
                           icon: Container(
                             width: 32,
@@ -136,10 +143,10 @@ class Details extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                         Padding(
+                        Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Text(
-                            '\$${categoryModel.price}',
+                            '\$${widget.categoryModel.price}',
                             style: const TextStyle(
                                 fontSize: 22,
                                 fontWeight: FontWeight.bold,

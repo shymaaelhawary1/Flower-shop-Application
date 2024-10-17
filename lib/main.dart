@@ -12,7 +12,7 @@ void main() async {
   options: DefaultFirebaseOptions.currentPlatform,
 );
   runApp(
-    MyApp(),
+    const MyApp(),
   );
 }
 
@@ -30,9 +30,9 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return Home();
+            return LoginScreen();
           } else {
-            return OnBoardingPageView();
+            return const OnBoardingPageView();
           }
         },
       ),
