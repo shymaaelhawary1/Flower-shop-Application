@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return Home();
+            return LoginScreen();
           } else {
             return const OnBoardingPageView();
           }
