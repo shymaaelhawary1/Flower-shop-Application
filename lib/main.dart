@@ -6,6 +6,8 @@ import 'package:flower_shop/firebase_options.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'features/dashboard/CategoryPage/veiw/CategoryPage.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return LoginScreen();
+            return Home();
           } else {
             return const OnBoardingPageView();
           }

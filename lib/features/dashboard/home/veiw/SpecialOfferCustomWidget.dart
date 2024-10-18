@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../details/veiw/details.dart';
 import '../model/CategoryModel.dart';
 
 class SpecialOfferCustomWidget extends StatelessWidget {
   SpecialOfferCustomWidget({super.key});
 
   final List<CategoryModel> categories = [
-    CategoryModel(image: 'assets/Rectangle 14.png', price: 50, title: ''),
-    CategoryModel(image: 'assets/Rectangle 15.png', price: 30, title: ''),
-    CategoryModel(image: 'assets/Rectangle 16.png', price: 20, title: ''),
-    CategoryModel(image: 'assets/Rectangle 20.png', price: 20, title: ''),
+    CategoryModel(
+        image: 'assets/flower19.jpg', price: 150, title: 'graduation package'),
+    CategoryModel(
+        image: 'assets/flower17.jpg', price: 130, title: 'widding package'),
+    CategoryModel(
+        image: 'assets/flower11.jpg', price: 120, title: 'frinds package'),
+    CategoryModel(
+        image: 'assets/flower13.jpg', price: 145, title: 'special package'),
   ];
 
   @override
@@ -24,12 +29,22 @@ class SpecialOfferCustomWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Stack(
               children: [
-                Container(
-                  width: 150,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(categories[index].image),
-                      fit: BoxFit.cover,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Details(
+                        categoryModel: categories[index],
+                      );
+                    }));
+                  },
+                  child: Container(
+                    width: 150,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(categories[index].image),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

@@ -6,20 +6,32 @@ import 'package:flower_shop/features/dashboard/home/model/CategoryModel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../CategoryPage/veiw/CategoryPage.dart';
-import 'CategoryItemCustomWidget.dart';
+import '../../details/veiw/details.dart';
 import 'SpecialOfferCustomWidget.dart';
 
 class Home extends StatelessWidget {
+  Home({super.key});
   final PageController pageController = PageController();
   final ValueNotifier<int> currentIndexNotifier = ValueNotifier<int>(0);
 
   final List<CategoryModel> categories = [
-    CategoryModel(image: 'assets/Rectangle 8.png', title: 'Roses'),
-    CategoryModel(image: 'assets/Rectangle 9.png', title: 'lilies '),
-    CategoryModel(image: 'assets/Rectangle 10.png', title: 'seasonal'),
-    CategoryModel(image: 'assets/Rectangle 14.png', title: 'uniflora'),
+    CategoryModel(image: 'assets/flower25.jpg', title: 'Roses'),
+    CategoryModel(image: 'assets/flower26.jpg', title: 'lilies '),
+    CategoryModel(image: 'assets/flower23.jpg', title: 'seasonal'),
+    CategoryModel(image: 'assets/flower10.jpg', title: 'uniflora'),
   ];
-  Home({super.key});
+  final List<CategoryModel> popularModel = [
+    CategoryModel(image: 'assets/flower8.jpg', title: 'Roses', price: 90),
+    CategoryModel(image: 'assets/flower7.jpg', title: 'lilies ', price: 70),
+    CategoryModel(image: 'assets/flower1.jpg', title: 'seasonal', price: 50),
+    CategoryModel(image: 'assets/flower2.jpg', title: 'uniflora', price: 45),
+  ];
+  final List<String> catigoreyTypes = [
+    "Rosescategory",
+    "liliescategory",
+    "seasonalcategory",
+    "unifloracategory"
+  ];
 
   void onChangeTab(int index) {
     currentIndexNotifier.value = index;
@@ -101,7 +113,9 @@ class Home extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) {
-                                      return CategoryPage();
+                                      return CategoryPage(
+                                        categoryType: catigoreyTypes[index],
+                                      );
                                     },
                                   ),
                                 );
@@ -114,12 +128,33 @@ class Home extends StatelessWidget {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                                child: CategoryItemCustomWidget(
-                                  popular: false,
-                                ).buttonNamesCategores(
-                                  index: index,
-                                  context: context,
-                                  popular: false,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 115, bottom: 5, right: 30, left: 30),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) {
+                                            return CategoryPage(
+                                              categoryType:
+                                                  catigoreyTypes[index],
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFFBD8F97),
+                                    ),
+                                    child: Text(
+                                      popularModel[index].title,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
@@ -142,8 +177,61 @@ class Home extends StatelessWidget {
                     const SizedBox(height: 5),
                     SizedBox(
                       height: 150,
-                      child: CategoryItemCustomWidget(
-                        popular: true,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: InkWell(
+                              onTap: () {},
+                              child: Container(
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image:
+                                        AssetImage(popularModel[index].image),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 115, bottom: 5, right: 5, left: 0),
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return Details(
+                                          categoryModel: popularModel[index],
+                                        );
+                                      }));
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xFFBD8F97),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          popularModel[index].title,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          '${popularModel[index].price}\$',
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                     const SizedBox(
