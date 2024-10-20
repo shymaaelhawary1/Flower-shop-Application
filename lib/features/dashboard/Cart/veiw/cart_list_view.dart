@@ -61,7 +61,11 @@ class CartListView extends StatelessWidget {
             },
           );
         }
-        return const Center(child: Text("No items in cart."));
+        return const Center(
+            child: Text(
+          "No items in cart.",
+          style: TextStyle(fontSize: 18, color: Colors.grey),
+        ));
       },
     );
   }

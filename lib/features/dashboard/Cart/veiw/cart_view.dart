@@ -27,7 +27,11 @@ class CartView extends StatelessWidget {
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           if (state is CartInitial) {
-            return const Center(child: Text("Your cart is empty."));
+            return const Center(
+                child: Text(
+              "Your cart is empty.",
+              style: TextStyle(fontSize: 18, color: Colors.grey),
+            ));
           } else if (state is CartLoaded) {
             final cartItems = state.cartItems;
             final totalPrice = cartItems.fold(
@@ -38,9 +42,7 @@ class CartView extends StatelessWidget {
 
             return Column(
               children: [
-                const Expanded(
-                    child:
-                        CartListView()), // تم تغليف الـ ListView بـ Expanded لتجنب المشاكل
+                const Expanded(child: CartListView()),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -84,9 +86,7 @@ class CartView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      onPressed: () {
-                        // فعل الزر هنا
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'Checkout',
                         style: TextStyle(fontSize: 18),
