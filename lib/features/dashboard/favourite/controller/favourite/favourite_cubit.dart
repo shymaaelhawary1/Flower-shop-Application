@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flower_shop/cubits/favourite/favourite_state.dart';
+import 'package:flower_shop/features/dashboard/favourite/controller/favourite/favourite_state.dart';
 import 'package:flower_shop/features/dashboard/home/model/CategoryModel.dart';
 
 class FavoritesCubit extends Cubit<FavoritesState> {

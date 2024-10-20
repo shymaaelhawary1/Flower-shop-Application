@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _isObscure = true;
+  bool _isObscure = false;
   String? pass;
   String? mail;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             onChanged: (password) {
                               pass = password;
                             },
-                            obscureText: _isObscure,
+                            obscureText: !_isObscure,
                             decoration: InputDecoration(
                               hintText: 'Password',
                               hintStyle: const TextStyle(
@@ -195,11 +195,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   });
                                 }
                               }
-
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return Home();
-                              }));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFFBD8F97),

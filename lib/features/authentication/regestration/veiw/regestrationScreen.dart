@@ -13,13 +13,12 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   String? pass;
-
   String? mail;
-
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   bool isLoading = false;
- bool _isObscure = true;
+  bool _isObscure = true; // Changed to true to obscure password initially
+
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -65,47 +64,49 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     ),
                     const SizedBox(height: 5),
                     Form(
+                      key: formkey, // Attached the form key here
                       child: Column(
                         children: [
-  
-                                TextFormField(
-                                validator: MyValidation().mailValidate,
-                                onChanged: (email) {
-                                  mail = email;
-                                },
-                                decoration: const InputDecoration(
-                                  hintText: 'Email address',
-                                  hintStyle: TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFFBD8F97),
-                                  ),
-                                ),
+                          TextFormField(
+                            validator: MyValidation().mailValidate,
+                            onChanged: (email) {
+                              mail = email.trim(); // Trim input
+                            },
+                            decoration: const InputDecoration(
+                              hintText: 'Email address',
+                              hintStyle: TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFFBD8F97),
                               ),
-                              const SizedBox(height: 10),
-                              TextFormField(
-                                validator: MyValidation().passwordValidate,
-                                onChanged: (password) {
-                                  pass = password;
-                                },
-                                obscureText: true,
-                                decoration: InputDecoration(
-                                  hintText: 'Password',
-                                  hintStyle: const TextStyle(
-                                    fontSize: 15,
-                                    color: Color(0xFFBD8F97),
-                                  ),
-                                  suffixIcon: IconButton( icon:  Icon(
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          TextFormField(
+                            validator: MyValidation().passwordValidate,
+                            onChanged: (password) {
+                              pass = password.trim(); // Trim input
+                            },
+                            obscureText: _isObscure, // Using _isObscure
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              hintStyle: const TextStyle(
+                                fontSize: 15,
+                                color: Color(0xFFBD8F97),
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
                                   _isObscure
                                       ? Icons.visibility
                                       : Icons.visibility_off,
                                 ),
                                 onPressed: () {
-                                  _isObscure = !_isObscure;
-                                },)
-                                ),
+                                  setState(() {
+                                    _isObscure = !_isObscure;
+                                  });
+                                },
                               ),
-                            
-                        
+                            ),
+                          ),
                           const SizedBox(height: 5),
                           GestureDetector(
                             onTap: () {
@@ -133,17 +134,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () async {
-               if (formkey.currentState != null && formkey.currentState!.validate()) {   
-                                             isLoading = true;
-                                setState((){
-
+                              if (formkey.currentState != null &&
+                                  formkey.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true;
                                 });
                                 try {
                                   await registerFirebase();
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                       content: Text(
-                                          'your registration is successful'),
+                                          'Your registration is successful'),
                                     ),
                                   );
                                 } on FirebaseAuthException catch (e) {
@@ -169,10 +170,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                           'An error occurred during registration.'),
                                     ),
                                   );
-                                  isLoading = false;
-                                  setState((){
-                                  
-                                });
+                                } finally {
+                                  setState(() {
+                                    isLoading = false;
+                                  });
                                 }
                               }
                             },
@@ -257,8 +258,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   }
 
   Future<void> registerFirebase() async {
-    UserCredential credential =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: mail!,
       password: pass!,
     );

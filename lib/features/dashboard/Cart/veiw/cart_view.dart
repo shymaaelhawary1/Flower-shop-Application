@@ -1,5 +1,5 @@
-import 'package:flower_shop/cubits/cart/cart_cubit.dart';
-import 'package:flower_shop/cubits/cart/cart_state.dart';
+import 'package:flower_shop/features/dashboard/Cart/controller/cart/cart_cubit.dart';
+import 'package:flower_shop/features/dashboard/Cart/controller/cart/cart_state.dart';
 import 'package:flower_shop/features/dashboard/Cart/veiw/cart_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +20,9 @@ class CartView extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFFBD8F97)),
       ),
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
@@ -28,33 +31,66 @@ class CartView extends StatelessWidget {
           } else if (state is CartLoaded) {
             final cartItems = state.cartItems;
             final totalPrice = cartItems.fold(
-              0.0, // Start with 0.0 for a double value
+              0.0,
               (previousValue, item) =>
                   previousValue + (item.price * item.quantity),
             );
 
             return Column(
               children: [
-                const CartListView(), // Assuming this already displays the list of items.
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Total:'),
-                    Text('\$${totalPrice.toStringAsFixed(2)}'),
-                  ],
+                const Expanded(
+                    child:
+                        CartListView()), // تم تغليف الـ ListView بـ Expanded لتجنب المشاكل
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                  child: Container(
+                    padding: const EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          'Total:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          '\$${totalPrice.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFFBD8F97),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(
-                  width: 300,
+                  width: double.infinity,
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFBD8F97),
+                        padding: const EdgeInsets.symmetric(vertical: 15),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                       onPressed: () {
-                        // Implement checkout logic here
+                        // فعل الزر هنا
                       },
-                      child: const Text('Checkout'),
+                      child: const Text(
+                        'Checkout',
+                        style: TextStyle(fontSize: 18),
+                      ),
                     ),
                   ),
                 ),

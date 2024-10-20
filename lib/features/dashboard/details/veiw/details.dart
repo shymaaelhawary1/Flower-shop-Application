@@ -1,7 +1,7 @@
-import 'package:flower_shop/cubits/cart/cart_cubit.dart';
-import 'package:flower_shop/cubits/cart/cart_state.dart';
-import 'package:flower_shop/cubits/favourite/favourite_cubit.dart';
-import 'package:flower_shop/cubits/favourite/favourite_state.dart';
+import 'package:flower_shop/features/dashboard/Cart/controller/cart/cart_cubit.dart';
+import 'package:flower_shop/features/dashboard/Cart/controller/cart/cart_state.dart';
+import 'package:flower_shop/features/dashboard/favourite/controller/favourite/favourite_cubit.dart';
+import 'package:flower_shop/features/dashboard/favourite/controller/favourite/favourite_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

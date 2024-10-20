@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flower_shop/cubits/cart/cart_cubit.dart';
-import 'package:flower_shop/cubits/favourite/favourite_cubit.dart';
+import 'package:flower_shop/features/dashboard/Cart/controller/cart/cart_cubit.dart';
+import 'package:flower_shop/features/dashboard/favourite/controller/favourite/favourite_cubit.dart';
 import 'package:flower_shop/features/authentication/OnBoarding/onboarding.dart';
 import 'package:flower_shop/features/authentication/login/veiw/loginscreen.dart';
 import 'package:flower_shop/features/dashboard/home/veiw/home.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           } else if (snapshot.data == true) {
-            return LoginScreen();
+            return Home();
           } else {
             return const OnBoardingPageView();
           }
